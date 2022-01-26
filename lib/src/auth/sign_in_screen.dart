@@ -29,15 +29,45 @@ class SignInScreen extends StatelessWidget {
                 ),
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  CustomTextField(
+                  const CustomTextField(
                     icon: Icons.email,
                     label: 'Email',
                   ),
-                  CustomTextField(
+                  const CustomTextField(
                     icon: Icons.lock,
                     label: 'Password',
                     isSecret: true,
+                  ),
+                  SizedBox(
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                      child: const Text(
+                        'Enter',
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        'Forgot password?',
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
