@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
+
 import 'components/custom_text_field.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -12,8 +14,53 @@ class SignInScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: Container(
-              color: Colors.green,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text.rich(
+                  TextSpan(
+                    style: TextStyle(
+                      fontSize: 40,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: 'Green',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'grocer',
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                  child: DefaultTextStyle(
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                    ),
+                    child: AnimatedTextKit(
+                      repeatForever: true,
+                      pause: Duration.zero,
+                      animatedTexts: [
+                        FadeAnimatedText('Fruits'),
+                        FadeAnimatedText('Dairy'),
+                        FadeAnimatedText('Vegetable'),
+                        FadeAnimatedText('Cereals'),
+                        FadeAnimatedText('Meat'),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           Container(
