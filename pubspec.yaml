@@ -11,6 +11,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  mask_text_input_formatter: ^2.0.0
 
 dev_dependencies:
   flutter_lints: ^1.0.0
