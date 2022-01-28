@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:animated_text_kit/animated_text_kit.dart';
-
-import 'components/custom_text_field.dart';
 import 'package:mercadinho/src/config/custom_colors.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -10,8 +7,6 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: CustomColors.customSwatchColor,
       body: Column(
@@ -27,7 +22,18 @@ class SignUpScreen extends StatelessWidget {
               ),
             ),
           ),
-          Container(),
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 32,
+              vertical: 40,
+            ),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(50),
+              ),
+            ),
+          ),
         ],
       ),
     );
