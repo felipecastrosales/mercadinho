@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
 import 'components/custom_text_field.dart';
+import 'package:mercadinho/src/base/base_screen.dart';
 import 'package:mercadinho/src/config/custom_colors.dart';
-
 import 'sign_up_screen.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -96,7 +96,13 @@ class SignInScreen extends StatelessWidget {
                     SizedBox(
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => const BaseScreen(),
+                            ),
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
