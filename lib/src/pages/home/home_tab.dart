@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
 
 import 'package:mercadinho/src/config/custom_colors.dart';
+import 'package:mercadinho/src/config/app_data.dart' as appData;
 import 'components/category_tile.dart';
+import 'components/item_tile.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -35,7 +37,7 @@ class _HomeTabState extends State<HomeTab> {
                     fontSize: 12,
                   ),
                 ),
-                badgeColor: CustomColors.customSwatchColor,
+                badgeColor: CustomColors.customContrastColor,
                 child: Icon(
                   Icons.shopping_cart,
                   color: CustomColors.customSwatchColor,
@@ -104,17 +106,36 @@ class _HomeTabState extends State<HomeTab> {
             height: 40,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemCount: categories.length,
+              itemCount: appData.categories.length,
               separatorBuilder: (_, index) => const SizedBox(width: 10),
               itemBuilder: (_, index) {
                 return CategoryTile(
-                  category: categories[index],
-                  isSelected: categories[index] == selectedCategory,
+                  category: appData.categories[index],
+                  isSelected: appData.categories[index] == selectedCategory,
                   onTap: () {
                     setState(() {
-                      selectedCategory = categories[index];
+                      selectedCategory = appData.categories[index];
                     });
                   },
+                );
+              },
+            ),
+          ),
+          Expanded(
+            child: GridView.builder(
+              shrinkWrap: true,
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              physics: const BouncingScrollPhysics(),
+              itemCount: appData.items.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                childAspectRatio: 9 / 11.5,
+              ),
+              itemBuilder: (_, index) {
+                return ItemTile(
+                  item: appData.items[index]
                 );
               },
             ),
