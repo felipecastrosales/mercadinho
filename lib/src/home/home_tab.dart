@@ -3,9 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
 
 import 'package:mercadinho/src/config/custom_colors.dart';
+import 'components/category_tile.dart';
 
-class HomeTab extends StatelessWidget {
+class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
+
+  @override
+  State<HomeTab> createState() => _HomeTabState();
+}
+
+class _HomeTabState extends State<HomeTab> {
+  List<String> categories = [
+    'Fruits',
+    'Dairy',
+    'Vegetable',
+    'Cereals',
+    'Meat',
+  ];
+  String selectedCategory = 'Fruits';
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +104,26 @@ class HomeTab extends StatelessWidget {
                   ),
                 ),
               ),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.only(left: 24),
+            height: 40,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: categories.length,
+              separatorBuilder: (_, index) => const SizedBox(width: 10),
+              itemBuilder: (_, index) {
+                return CategoryTile(
+                  category: categories[index],
+                  isSelected: categories[index] == selectedCategory,
+                  onTap: () {
+                    setState(() {
+                      selectedCategory = categories[index];
+                    });
+                  },
+                );
+              },
             ),
           ),
         ],
