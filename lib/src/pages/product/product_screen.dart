@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:mercadinho/src/config/custom_colors.dart';
 import 'package:mercadinho/src/models/item_model.dart';
+import 'package:mercadinho/src/pages/commom_widgets/quantity_widget.dart';
 import 'package:mercadinho/src/services/utils_services.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -58,11 +59,7 @@ class ProductScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Container(
-                            height: 30,
-                            width: 70,
-                            color: Colors.red,
-                          ),
+                          QuantityWidget(),
                         ],
                       ),
                       Text(
