@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:mercadinho/src/config/app_data.dart' as appData;
 import 'package:mercadinho/src/config/custom_colors.dart';
 import 'package:mercadinho/src/services/utils_services.dart';
 
@@ -16,8 +17,13 @@ class CartTab extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const Expanded(
-            child: Placeholder(),
+          Expanded(
+            child: ListView.builder(
+              itemCount: appData.cartItems.length,
+              itemBuilder: (_, index) {
+                return Text(appData.cartItems[index].item.itemName);
+              },
+            ),
           ),
           const SizedBox(height: 20),
           Container(
