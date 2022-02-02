@@ -5,12 +5,21 @@ import 'package:mercadinho/src/models/cart_item_model.dart';
 import 'package:mercadinho/src/pages/commom_widgets/quantity_widget.dart';
 import 'package:mercadinho/src/services/utils_services.dart';
 
-class CartTile extends StatelessWidget {
-  CartTile({
+class CartTile extends StatefulWidget {
+  const CartTile({
     Key? key,
     required this.cartItem,
+    required this.remove,
   }) : super(key: key);
+
   final CartItemModel cartItem;
+  final Function(CartItemModel) remove;
+
+  @override
+  State<CartTile> createState() => _CartTileState();
+}
+
+class _CartTileState extends State<CartTile> {
   final utilsServices = UtilsServices();
 
   @override
@@ -22,17 +31,17 @@ class CartTile extends StatelessWidget {
       ),
       child: ListTile(
         leading: Image.asset(
-          cartItem.item.imgUrl,
+          widget.cartItem.item.imgUrl,
           height: 60,
           width: 60,
         ),
         title: Text(
-          cartItem.item.itemName,
+          widget.cartItem.item.itemName,
           style: const TextStyle(fontWeight: FontWeight.w500),
         ),
         subtitle: Text(
           utilsServices.priceToCurrency(
-            cartItem.totalPrice(),
+            widget.cartItem.totalPrice(),
           ),
           style: TextStyle(
             fontWeight: FontWeight.bold,
@@ -40,9 +49,17 @@ class CartTile extends StatelessWidget {
           ),
         ),
         trailing: QuantityWidget(
-          suffixText: cartItem.item.unit,
-          value: cartItem.quantity,
-          result: (quantity) {},
+          suffixText: widget.cartItem.item.unit,
+          value: widget.cartItem.quantity,
+          result: (quantity) {
+            setState(() {
+              widget.cartItem.quantity = quantity;
+              if (widget.cartItem.quantity == 0) {
+                widget.remove(widget.cartItem);
+              }
+            });
+          },
+          isRemovable: true,
         ),
       ),
     );
