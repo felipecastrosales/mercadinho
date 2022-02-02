@@ -4,6 +4,8 @@ import 'package:mercadinho/src/config/app_data.dart' as appData;
 import 'package:mercadinho/src/config/custom_colors.dart';
 import 'package:mercadinho/src/services/utils_services.dart';
 
+import 'components/cart_tile.dart';
+
 class CartTab extends StatelessWidget {
   CartTab({Key? key}) : super(key: key);
   final utilsServices = UtilsServices();
@@ -21,7 +23,10 @@ class CartTab extends StatelessWidget {
             child: ListView.builder(
               itemCount: appData.cartItems.length,
               itemBuilder: (_, index) {
-                return Text(appData.cartItems[index].item.itemName);
+                return CartTile(
+                cartItem:
+                  appData.cartItems[index], 
+                );
               },
             ),
           ),
