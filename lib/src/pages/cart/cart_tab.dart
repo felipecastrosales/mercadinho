@@ -70,13 +70,12 @@ class _CartTabState extends State<CartTab> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Text(
-                  'Total',
+                  'Total:',
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 20),
                 Text(
                   utilsServices.priceToCurrency(
                     cartTotalPrice(),
@@ -90,7 +89,11 @@ class _CartTabState extends State<CartTab> {
                 SizedBox(
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      bool? result = await showOrderConfirmation();
+                      // ignore: avoid_print
+                      print(result);
+                    },
                     child: const Text(
                       'Checkout',
                       style: TextStyle(
@@ -108,6 +111,35 @@ class _CartTabState extends State<CartTab> {
                 )
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<bool?> showOrderConfirmation() {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        title: const Text('Order Confirmation'),
+        content: const Text('Are you sure you want to checkout?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('No'),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              primary: CustomColors.customSwatchColor,
+            ),
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Yes'),
           ),
         ],
       ),
