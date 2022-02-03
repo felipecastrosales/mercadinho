@@ -1,5 +1,6 @@
 import 'package:mercadinho/src/models/cart_item_model.dart';
 import 'package:mercadinho/src/models/item_model.dart';
+import 'package:mercadinho/src/models/user_model.dart';
 
 ItemModel apple = ItemModel(
   itemName: 'Apple',
@@ -86,3 +87,11 @@ List<CartItemModel> cartItems = [
     quantity: 5,
   ),
 ];
+
+UserModel user = UserModel(
+  name: 'Luis Felipe de Castro Sales',
+  email: 'soufeliposales@gmail.com',
+  phone: '55 85 9876-1234',
+  cpf: '123.456.789.10',
+  password: '123456',
+);
