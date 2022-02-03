@@ -1,5 +1,6 @@
 import 'package:mercadinho/src/models/cart_item_model.dart';
 import 'package:mercadinho/src/models/item_model.dart';
+import 'package:mercadinho/src/models/order_model.dart';
 import 'package:mercadinho/src/models/user_model.dart';
 
 ItemModel apple = ItemModel(
@@ -95,3 +96,20 @@ UserModel user = UserModel(
   cpf: '123.456.789.10',
   password: '123456',
 );
+
+List<OrderModel> orders = [
+  OrderModel(
+    id: 'assd45sa452azxd1',
+    items: [
+      CartItemModel(
+        item: apple,
+        quantity: 2,
+      ),
+    ],
+    status: 'pending_payment',
+    total: 11.0,
+    copyAndPaste: '',
+    createdDataTime: DateTime.parse('2022-06-08 10:00:10:458'),
+    overdueDateTime: DateTime.parse('2022-06-10 10:00:10:458'),
+  ),
+];
