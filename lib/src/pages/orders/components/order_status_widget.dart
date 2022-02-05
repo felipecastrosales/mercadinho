@@ -29,21 +29,41 @@ class OrderStatusWidget extends StatelessWidget {
           isActive: true,
           title: 'Payment confirmed',
         ),
-        _CustomDivider(),
+        const _CustomDivider(),
         if (currentStatus == 1) ...[
           const _StatusDot(
             isActive: true,
             title: 'Pix reversed',
             backgroundColor: Colors.orange,
           ),
-        _CustomDivider(),
-        ] else if (isOverdue)  ...[
+          const _CustomDivider(),
+        ] else if (isOverdue) ...[
           const _StatusDot(
             isActive: true,
             title: 'Pix not exists',
             backgroundColor: Colors.red,
           ),
-        ] 
+        ] else ...[
+          _StatusDot(
+            isActive: currentStatus >= 2,
+            title: 'Payment',
+          ),
+          const _CustomDivider(),
+          _StatusDot(
+            isActive: currentStatus >= 3,
+            title: 'Preparing',
+          ),
+          const _CustomDivider(),
+          _StatusDot(
+            isActive: currentStatus >= 4,
+            title: 'Sending',
+          ),
+          const _CustomDivider(),
+          _StatusDot(
+            isActive: currentStatus == 5,
+            title: 'Delivered',
+          ),
+        ]
       ],
     );
   }
