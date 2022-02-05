@@ -105,6 +105,10 @@ List<OrderModel> orders = [
         item: apple,
         quantity: 2,
       ),
+      CartItemModel(
+        item: mango,
+        quantity: 3,
+      ),
     ],
     status: 'pending_payment',
     total: 11.0,
