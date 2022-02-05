@@ -132,7 +132,7 @@ List<OrderModel> orders = [
         quantity: 1,
       ),
     ],
-    status: 'pending_payment',
+    status: 'refunded',
     total: 19.5,
     copyAndPaste: '4537838542',
     createdDataTime: DateTime.parse('2022-05-08 10:00:10.458'),
