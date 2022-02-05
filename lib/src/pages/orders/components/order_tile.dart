@@ -4,6 +4,8 @@ import 'package:mercadinho/src/models/cart_item_model.dart';
 import 'package:mercadinho/src/models/order_model.dart';
 import 'package:mercadinho/src/services/utils_services.dart';
 
+import 'order_status_widget.dart';
+
 class OrderTile extends StatelessWidget {
   OrderTile({
     Key? key,
@@ -47,14 +49,26 @@ class OrderTile extends StatelessWidget {
                     flex: 3,
                     child: ListView(
                       children: order.items.map((orderItem) {
-                        return _OrderItemWidget(utilsServices: utilsServices,
-                        orderItem: orderItem,);
+                        return _OrderItemWidget(
+                          utilsServices: utilsServices,
+                          orderItem: orderItem,
+                        );
                       }).toList(),
                     ),
                   ),
+                  VerticalDivider(
+                    color: Colors.grey.shade300,
+                    thickness: 2,
+                    width: 8,
+                  ),
                   Expanded(
                     flex: 2,
-                    child: Container(),
+                    child: OrderStatusWidget(
+                      status: order.status,
+                      isOverdue: order.overdueDateTime.isBefore(
+                        DateTime.now(),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -83,23 +97,20 @@ class _OrderItemWidget extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            '$orderItem.quantity x ${orderItem.item.unit} ',
+            '${orderItem.quantity} x ${orderItem.item.unit} ',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
-          Text(
-            orderItem.item.itemName,
+          Expanded(
+            child: Text(
+              orderItem.item.itemName,
+            ),
           ),
           Text(
             utilsServices.priceToCurrency(
               orderItem.totalPrice(),
             ),
-          ),
-          Container(
-            height: 8,
-            color: Colors.red,
-            margin: const EdgeInsets.only(bottom: 10),
           ),
         ],
       ),

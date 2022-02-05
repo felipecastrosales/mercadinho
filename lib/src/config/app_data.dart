@@ -87,6 +87,10 @@ List<CartItemModel> cartItems = [
     item: papaya,
     quantity: 5,
   ),
+  CartItemModel(
+    item: guava,
+    quantity: 5,
+  ),
 ];
 
 UserModel user = UserModel(
@@ -112,8 +116,26 @@ List<OrderModel> orders = [
     ],
     status: 'pending_payment',
     total: 11.0,
-    copyAndPaste: '',
+    copyAndPaste: '25424527',
     createdDataTime: DateTime.parse('2022-06-08 10:00:10.458'),
     overdueDateTime: DateTime.parse('2022-06-10 10:00:10.458'),
+  ),
+  OrderModel(
+    id: 'xzcrtre5446sad1',
+    items: [
+      CartItemModel(
+        item: papaya,
+        quantity: 2,
+      ),
+      CartItemModel(
+        item: guava,
+        quantity: 1,
+      ),
+    ],
+    status: 'pending_payment',
+    total: 19.5,
+    copyAndPaste: '4537838542',
+    createdDataTime: DateTime.parse('2022-05-08 10:00:10.458'),
+    overdueDateTime: DateTime.parse('2022-05-10 10:00:10.458'),
   ),
 ];
