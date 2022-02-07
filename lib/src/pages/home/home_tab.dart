@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:add_to_cart_animation/add_to_cart_animation.dart';
+import 'package:add_to_cart_animation/add_to_cart_icon.dart';
 import 'package:badges/badges.dart';
 
 import 'package:mercadinho/src/config/custom_colors.dart';
@@ -16,6 +18,12 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   String selectedCategory = 'Fruits';
+  GlobalKey<CartIconKey> globayKeyCartItems = GlobalKey<CartIconKey>();
+  late Function(GlobalKey) runAddToCardAnimation;
+
+  void itemSelectedCartAnimations(GlobalKey gkImage) {
+    runAddToCardAnimation(gkImage);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +46,12 @@ class _HomeTabState extends State<HomeTab> {
                   ),
                 ),
                 badgeColor: CustomColors.customContrastColor,
-                child: Icon(
-                  Icons.shopping_cart,
-                  color: CustomColors.customSwatchColor,
+                child: AddToCartIcon(
+                  key: globayKeyCartItems,
+                  icon: Icon(
+                    Icons.shopping_cart,
+                    color: CustomColors.customSwatchColor,
+                  ),
                 ),
               ),
             ),
@@ -69,78 +80,87 @@ class _HomeTabState extends State<HomeTab> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 10,
-            ),
-            child: TextFormField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                isDense: true,
-                labelText: 'Search here...',
-                labelStyle: TextStyle(
-                  color: Colors.grey.shade400,
-                  fontSize: 14,
-                ),
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: CustomColors.customContrastColor,
-                  size: 20,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50),
-                  borderSide: const BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
+      body: AddToCartAnimation(
+        gkCart: globayKeyCartItems,
+        previewDuration: const Duration(milliseconds: 100),
+        previewCurve: Curves.ease,
+        receiveCreateAddToCardAnimationMethod: (addToCardAnimationMethod) {
+          runAddToCardAnimation = addToCardAnimationMethod;
+        },
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10,
+              ),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  isDense: true,
+                  labelText: 'Search here...',
+                  labelStyle: TextStyle(
+                    color: Colors.grey.shade400,
+                    fontSize: 14,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: CustomColors.customContrastColor,
+                    size: 20,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50),
+                    borderSide: const BorderSide(
+                      width: 0,
+                      style: BorderStyle.none,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.only(left: 24),
-            height: 40,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: appData.categories.length,
-              separatorBuilder: (_, index) => const SizedBox(width: 10),
-              itemBuilder: (_, index) {
-                return CategoryTile(
-                  category: appData.categories[index],
-                  isSelected: appData.categories[index] == selectedCategory,
-                  onTap: () {
-                    setState(() {
-                      selectedCategory = appData.categories[index];
-                    });
-                  },
-                );
-              },
-            ),
-          ),
-          Expanded(
-            child: GridView.builder(
-              shrinkWrap: true,
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-              physics: const BouncingScrollPhysics(),
-              itemCount: appData.items.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: 9 / 11.5,
+            Container(
+              padding: const EdgeInsets.only(left: 24),
+              height: 40,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: appData.categories.length,
+                separatorBuilder: (_, index) => const SizedBox(width: 10),
+                itemBuilder: (_, index) {
+                  return CategoryTile(
+                    category: appData.categories[index],
+                    isSelected: appData.categories[index] == selectedCategory,
+                    onTap: () {
+                      setState(() {
+                        selectedCategory = appData.categories[index];
+                      });
+                    },
+                  );
+                },
               ),
-              itemBuilder: (_, index) {
-                return ItemTile(
-                  item: appData.items[index]
-                );
-              },
             ),
-          ),
-        ],
+            Expanded(
+              child: GridView.builder(
+                shrinkWrap: true,
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                physics: const BouncingScrollPhysics(),
+                itemCount: appData.items.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 9 / 11.5,
+                ),
+                itemBuilder: (_, index) {
+                  return ItemTile(
+                    item: appData.items[index],
+                    cartAnimationMethod: itemSelectedCartAnimations,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
