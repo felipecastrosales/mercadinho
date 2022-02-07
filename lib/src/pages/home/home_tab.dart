@@ -6,6 +6,7 @@ import 'package:badges/badges.dart';
 
 import 'package:mercadinho/src/config/custom_colors.dart';
 import 'package:mercadinho/src/config/app_data.dart' as appData;
+import 'package:mercadinho/src/services/utils_services.dart';
 import 'components/category_tile.dart';
 import 'components/item_tile.dart';
 
@@ -20,6 +21,7 @@ class _HomeTabState extends State<HomeTab> {
   String selectedCategory = 'Fruits';
   GlobalKey<CartIconKey> globayKeyCartItems = GlobalKey<CartIconKey>();
   late Function(GlobalKey) runAddToCardAnimation;
+  final utilsServices = UtilsServices();
 
   void itemSelectedCartAnimations(GlobalKey gkImage) {
     runAddToCardAnimation(gkImage);
