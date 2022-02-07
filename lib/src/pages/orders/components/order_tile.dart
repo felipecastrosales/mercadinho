@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:mercadinho/src/models/cart_item_model.dart';
 import 'package:mercadinho/src/models/order_model.dart';
+import 'package:mercadinho/src/pages/commom_widgets/payment_dialog.dart';
 import 'package:mercadinho/src/services/utils_services.dart';
-
 import 'order_status_widget.dart';
 
 class OrderTile extends StatelessWidget {
@@ -94,12 +94,18 @@ class OrderTile extends StatelessWidget {
             Visibility(
               visible: order.status == 'pending_payment',
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) {
+                      return PaymentDialog(order: order);
+                    },
+                  );
+                },
                 style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  )
-                ),
+                    shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                )),
                 icon: Image.asset(
                   'assets/app_images/pix.png',
                   height: 18,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mercadinho/src/config/app_data.dart' as appData;
 import 'package:mercadinho/src/config/custom_colors.dart';
 import 'package:mercadinho/src/models/cart_item_model.dart';
+import 'package:mercadinho/src/pages/commom_widgets/payment_dialog.dart';
 import 'package:mercadinho/src/services/utils_services.dart';
 import 'components/cart_tile.dart';
 
@@ -91,8 +92,14 @@ class _CartTabState extends State<CartTab> {
                   child: ElevatedButton(
                     onPressed: () async {
                       bool? result = await showOrderConfirmation();
-                      // ignore: avoid_print
-                      print(result);
+                      if (result ?? false) {
+                        showDialog(
+                          context: context,
+                          builder: (_) {
+                            return PaymentDialog(order: appData.orders.first);
+                          },
+                        );
+                      }
                     },
                     child: const Text(
                       'Checkout',
