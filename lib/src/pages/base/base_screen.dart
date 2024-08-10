@@ -6,7 +6,7 @@ import 'package:mercadinho/src/pages/orders/orders_tab.dart';
 import 'package:mercadinho/src/pages/profile/profile_tab.dart';
 
 class BaseScreen extends StatefulWidget {
-  const BaseScreen({Key? key}) : super(key: key);
+  const BaseScreen({super.key});
 
   @override
   State<BaseScreen> createState() => _BaseScreenState();
@@ -34,7 +34,6 @@ class _BaseScreenState extends State<BaseScreen> {
         onTap: (index) {
           setState(() {
             currentIndex = index;
-            // pageController.jumpToPage(index);
             pageController.animateToPage(
               index,
               duration: const Duration(milliseconds: 500),

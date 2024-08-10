@@ -7,9 +7,9 @@ import 'package:mercadinho/src/services/utils_services.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({
-    Key? key,
+    super.key,
     required this.item,
-  }) : super(key: key);
+  });
 
   final ItemModel item;
 
@@ -100,11 +100,6 @@ class _ProductScreenState extends State<ProductScreen> {
                         height: 50,
                         child: ElevatedButton.icon(
                           onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                          ),
                           label: const Text(
                             'BUY',
                             style: TextStyle(

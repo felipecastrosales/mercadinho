@@ -7,9 +7,9 @@ import 'package:mercadinho/src/models/order_model.dart';
 
 class PaymentDialog extends StatelessWidget {
   PaymentDialog({
-    Key? key,
+    super.key,
     required this.order,
-  }) : super(key: key);
+  });
 
   final OrderModel order;
   final utilsServices = UtilsServices();
@@ -48,7 +48,7 @@ class PaymentDialog extends StatelessWidget {
                     ),
                   ),
                 ),
-                QrImage(
+                QrImageView(
                   data: 'qfghuji34789oy',
                   version: QrVersions.auto,
                   size: 200,
@@ -64,23 +64,19 @@ class PaymentDialog extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                const SizedBox(height: 8),
                 OutlinedButton.icon(
                   onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    side: const BorderSide(
-                      width: 2,
-                      color: Colors.green,
-                    ),
-                  ),
                   icon: const Icon(
                     Icons.copy,
                     size: 16,
                   ),
-                  label: const Text('Copy PIX Code'),
+                  label: Text(
+                    'Copy PIX Code',
+                    style: TextStyle(color: Colors.green[800]),
+                  ),
                 ),
+                const SizedBox(height: 8),
               ],
             ),
           ),

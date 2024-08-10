@@ -8,16 +8,44 @@ class CustomTextField extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final String? initialValue;
   final bool readOnly;
+  final TextInputType? keyboardType;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.icon,
     required this.label,
     this.isSecret = false,
     this.inputFormatters,
     this.initialValue,
     this.readOnly = false,
-  }) : super(key: key);
+    this.keyboardType,
+  });
+
+  factory CustomTextField.email({
+    String? initialValue,
+    bool readOnly = false,
+  }) {
+    return CustomTextField(
+      icon: Icons.email,
+      label: 'Email',
+      initialValue: initialValue,
+      readOnly: readOnly,
+      keyboardType: TextInputType.emailAddress,
+    );
+  }
+
+  factory CustomTextField.password({
+    String? initialValue,
+    bool readOnly = false,
+  }) {
+    return CustomTextField(
+      icon: Icons.lock,
+      label: 'Password',
+      initialValue: initialValue,
+      readOnly: readOnly,
+      isSecret: true,
+    );
+  }
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -40,6 +68,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         readOnly: widget.readOnly,
         inputFormatters: widget.inputFormatters,
         obscureText: isObscure,
+        keyboardType: widget.keyboardType,
         decoration: InputDecoration(
           prefixIcon: Icon(widget.icon),
           suffixIcon: widget.isSecret
