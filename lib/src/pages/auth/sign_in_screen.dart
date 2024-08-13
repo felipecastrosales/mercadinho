@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:mercadinho/src/pages/commom_widgets/buttons/app_button.dart';
+import 'package:mercadinho/src/pages/commom_widgets/buttons/app_button_type.dart';
 
 import '../commom_widgets/custom_text_field.dart';
 import 'package:mercadinho/src/pages/base/base_screen.dart';
@@ -8,7 +10,7 @@ import 'package:mercadinho/src/config/custom_colors.dart';
 import 'sign_up_screen.dart';
 
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+  const SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -84,37 +86,18 @@ class SignInScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const CustomTextField(
-                      icon: Icons.email,
-                      label: 'Email',
-                    ),
-                    const CustomTextField(
-                      icon: Icons.lock,
-                      label: 'Password',
-                      isSecret: true,
-                    ),
-                    SizedBox(
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => const BaseScreen(),
-                            ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
+                    CustomTextField.email(),
+                    CustomTextField.password(),
+                    AppButton(
+                      type: AppButtonType.elevated,
+                      title: 'Enter',
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => const BaseScreen(),
                           ),
-                        ),
-                        child: const Text(
-                          'Enter',
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                     Align(
                       alignment: Alignment.centerRight,
@@ -151,34 +134,18 @@ class SignInScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 50,
-                      child: OutlinedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (c) {
-                                return const SignUpScreen();
-                              },
-                            ),
-                          );
-                        },
-                        style: OutlinedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
+                    AppButton(
+                      type: AppButtonType.outlined,
+                      title: 'Register',
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (c) {
+                              return const SignUpScreen();
+                            },
                           ),
-                          side: const BorderSide(
-                            width: 2,
-                            color: Colors.green,
-                          ),
-                        ),
-                        child: const Text(
-                          'Register',
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                   ],
                 ),

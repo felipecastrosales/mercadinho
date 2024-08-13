@@ -8,7 +8,7 @@ import 'package:mercadinho/src/services/utils_services.dart';
 import 'components/cart_tile.dart';
 
 class CartTab extends StatefulWidget {
-  const CartTab({Key? key}) : super(key: key);
+  const CartTab({super.key});
 
   @override
   State<CartTab> createState() => _CartTabState();
@@ -90,12 +90,14 @@ class _CartTabState extends State<CartTab> {
                     color: CustomColors.customSwatchColor,
                   ),
                 ),
+                const SizedBox(height: 16),
                 SizedBox(
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () async {
                       bool? result = await showOrderConfirmation();
-                      if (result ?? false) {
+
+                      if (context.mounted && (result ?? false)) {
                         showDialog(
                           context: context,
                           builder: (_) {
@@ -109,18 +111,18 @@ class _CartTabState extends State<CartTab> {
                         );
                       }
                     },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: CustomColors.customSwatchColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
                     child: const Text(
                       'Checkout',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
                       ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      primary: CustomColors.customSwatchColor,
                     ),
                   ),
                 )
@@ -144,17 +146,23 @@ class _CartTabState extends State<CartTab> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('No'),
+            child: Text(
+              'No',
+              style: TextStyle(color: CustomColors.customSwatchColor),
+            ),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
-              primary: CustomColors.customSwatchColor,
+              backgroundColor: CustomColors.customSwatchColor,
             ),
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Yes'),
+            child: const Text(
+              'Yes',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ],
       ),

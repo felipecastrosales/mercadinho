@@ -4,7 +4,7 @@ import 'package:mercadinho/src/config/app_data.dart' as appData;
 import 'components/order_tile.dart';
 
 class OrdersTab extends StatelessWidget {
-  const OrdersTab({Key? key}) : super(key: key);
+  const OrdersTab({super.key});
 
   @override
   Widget build(BuildContext context) {

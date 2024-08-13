@@ -1,17 +1,14 @@
+import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:flutter/material.dart';
 
-import 'package:add_to_cart_animation/add_to_cart_animation.dart';
-import 'package:add_to_cart_animation/add_to_cart_icon.dart';
-import 'package:badges/badges.dart';
-
-import 'package:mercadinho/src/config/custom_colors.dart';
 import 'package:mercadinho/src/config/app_data.dart' as appData;
+import 'package:mercadinho/src/config/custom_colors.dart';
+import 'package:mercadinho/src/pages/home/components/category_tile.dart';
+import 'package:mercadinho/src/pages/home/components/item_tile.dart';
 import 'package:mercadinho/src/services/utils_services.dart';
-import 'components/category_tile.dart';
-import 'components/item_tile.dart';
 
 class HomeTab extends StatefulWidget {
-  const HomeTab({Key? key}) : super(key: key);
+  const HomeTab({super.key});
 
   @override
   State<HomeTab> createState() => _HomeTabState();
@@ -19,77 +16,82 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   String selectedCategory = 'Fruits';
-  GlobalKey<CartIconKey> globayKeyCartItems = GlobalKey<CartIconKey>();
-  late Function(GlobalKey) runAddToCardAnimation;
   final utilsServices = UtilsServices();
 
-  void itemSelectedCartAnimations(GlobalKey gkImage) {
-    runAddToCardAnimation(gkImage);
+  GlobalKey<CartIconKey> cartKey = GlobalKey<CartIconKey>();
+  late Function(GlobalKey) runAddToCartAnimation;
+  var _cartQuantityItems = 0;
+
+  Future<void> listClick(GlobalKey widgetKey) async {
+    await runAddToCartAnimation(widgetKey);
+    await cartKey.currentState!
+        .runCartAnimation((++_cartQuantityItems).toString());
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(top: 14, right: 14),
-            child: GestureDetector(
-              onTap: () {},
-              child: Badge(
-                badgeContent: const Text(
-                  '2',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                  ),
-                ),
-                badgeColor: CustomColors.customContrastColor,
+    return AddToCartAnimation(
+      cartKey: cartKey,
+      height: 32,
+      width: 32,
+      dragAnimation: const DragToCartAnimationOptions(
+        rotation: true,
+      ),
+      jumpAnimation: const JumpAnimationOptions(
+        duration: Duration(milliseconds: 100),
+        curve: Curves.ease,
+      ),
+      createAddToCartAnimation: (runAddToCartAnimation) {
+        this.runAddToCartAnimation = runAddToCartAnimation;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(top: 2, right: 2),
+              child: GestureDetector(
+                onTap: () {},
                 child: AddToCartIcon(
-                  key: globayKeyCartItems,
+                  key: cartKey,
                   icon: Icon(
                     Icons.shopping_cart,
                     color: CustomColors.customSwatchColor,
                   ),
+                  badgeOptions: const BadgeOptions(
+                    active: true,
+                    backgroundColor: Colors.red,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-        title: Text.rich(
-          TextSpan(
-            style: const TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
+          ],
+          title: Text.rich(
+            TextSpan(
+              style: const TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+              children: [
+                TextSpan(
+                  text: 'Green',
+                  style: TextStyle(
+                    color: CustomColors.customSwatchColor,
+                  ),
+                ),
+                TextSpan(
+                  text: 'grocer',
+                  style: TextStyle(
+                    color: CustomColors.customContrastColor,
+                  ),
+                ),
+              ],
             ),
-            children: [
-              TextSpan(
-                text: 'Green',
-                style: TextStyle(
-                  color: CustomColors.customSwatchColor,
-                ),
-              ),
-              TextSpan(
-                text: 'grocer',
-                style: TextStyle(
-                  color: CustomColors.customContrastColor,
-                ),
-              ),
-            ],
           ),
         ),
-      ),
-      body: AddToCartAnimation(
-        gkCart: globayKeyCartItems,
-        previewDuration: const Duration(milliseconds: 100),
-        previewCurve: Curves.ease,
-        receiveCreateAddToCardAnimationMethod: (addToCardAnimationMethod) {
-          runAddToCardAnimation = addToCardAnimationMethod;
-        },
-        child: Column(
+        body: Column(
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -127,14 +129,16 @@ class _HomeTabState extends State<HomeTab> {
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemCount: appData.categories.length,
-                separatorBuilder: (_, index) => const SizedBox(width: 10),
+                separatorBuilder: (_, index) => const SizedBox(width: 8),
                 itemBuilder: (_, index) {
+                  final category = appData.categories[index];
+
                   return CategoryTile(
-                    category: appData.categories[index],
-                    isSelected: appData.categories[index] == selectedCategory,
+                    category: category,
+                    isSelected: category == selectedCategory,
                     onTap: () {
                       setState(() {
-                        selectedCategory = appData.categories[index];
+                        selectedCategory = category;
                       });
                     },
                   );
@@ -149,14 +153,14 @@ class _HomeTabState extends State<HomeTab> {
                 itemCount: appData.items.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
                   childAspectRatio: 9 / 11.5,
                 ),
                 itemBuilder: (_, index) {
                   return ItemTile(
                     item: appData.items[index],
-                    cartAnimationMethod: itemSelectedCartAnimations,
+                    onClick: listClick,
                   );
                 },
               ),

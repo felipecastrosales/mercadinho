@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:mercadinho/src/config/app_data.dart' as appData;
+import 'package:mercadinho/src/pages/commom_widgets/buttons/app_button.dart';
+import 'package:mercadinho/src/pages/commom_widgets/buttons/app_button_type.dart';
 import 'package:mercadinho/src/pages/commom_widgets/custom_text_field.dart';
 
 class ProfileTab extends StatefulWidget {
-  const ProfileTab({Key? key}) : super(key: key);
+  const ProfileTab({super.key});
 
   @override
   State<ProfileTab> createState() => _ProfileTabState();
@@ -52,21 +54,13 @@ class _ProfileTabState extends State<ProfileTab> {
             label: 'CPF',
             isSecret: true,
           ),
-          SizedBox(
-            height: 50,
-            child: OutlinedButton(
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  side: const BorderSide(color: Colors.green),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-              ),
-              onPressed: () {
-                updatePassword();
-              },
-              child: const Text('Update password'),
-            ),
-          )
+          AppButton(
+            type: AppButtonType.outlined,
+            title: 'Update password',
+            onPressed: () {
+              updatePassword();
+            },
+          ),
         ],
       ),
     );
@@ -115,22 +109,10 @@ class _ProfileTabState extends State<ProfileTab> {
                         label: 'Confirm password',
                         isSecret: true,
                       ),
-                      SizedBox(
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                          ),
-                          child: const Text(
-                            'Update',
-                            style: TextStyle(
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
+                      AppButton(
+                        type: AppButtonType.elevated,
+                        title: 'Update',
+                        onPressed: () {},
                       ),
                     ],
                   ),

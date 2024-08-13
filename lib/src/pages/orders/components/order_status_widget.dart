@@ -3,10 +3,10 @@ import 'package:mercadinho/src/config/custom_colors.dart';
 
 class OrderStatusWidget extends StatelessWidget {
   OrderStatusWidget({
-    Key? key,
+    super.key,
     required this.status,
     required this.isOverdue,
-  }) : super(key: key);
+  });
 
   final String status;
   final bool isOverdue;
@@ -70,7 +70,7 @@ class OrderStatusWidget extends StatelessWidget {
 }
 
 class _CustomDivider extends StatelessWidget {
-  const _CustomDivider({Key? key}) : super(key: key);
+  const _CustomDivider();
 
   @override
   Widget build(BuildContext context) {
@@ -85,11 +85,10 @@ class _CustomDivider extends StatelessWidget {
 
 class _StatusDot extends StatelessWidget {
   const _StatusDot({
-    Key? key,
     required this.isActive,
     required this.title,
     this.backgroundColor,
-  }) : super(key: key);
+  });
 
   final bool isActive;
   final String title;

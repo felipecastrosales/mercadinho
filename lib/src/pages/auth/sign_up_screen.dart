@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:mercadinho/src/pages/base/base_screen.dart';
+import 'package:mercadinho/src/pages/commom_widgets/buttons/app_button.dart';
+import 'package:mercadinho/src/pages/commom_widgets/buttons/app_button_type.dart';
 
 import '../commom_widgets/custom_text_field.dart';
 import 'package:mercadinho/src/config/custom_colors.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,15 +62,8 @@ class SignUpScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const CustomTextField(
-                          icon: Icons.email,
-                          label: 'Email',
-                        ),
-                        const CustomTextField(
-                          icon: Icons.lock,
-                          label: 'Password',
-                          isSecret: true,
-                        ),
+                        CustomTextField.email(),
+                        CustomTextField.password(),
                         const CustomTextField(
                           icon: Icons.person,
                           label: 'Name',
@@ -76,28 +72,24 @@ class SignUpScreen extends StatelessWidget {
                           icon: Icons.phone,
                           label: 'Phone',
                           inputFormatters: [phoneFormatter],
+                          keyboardType: TextInputType.phone,
                         ),
                         CustomTextField(
                           icon: Icons.file_copy,
                           label: 'CPF',
                           inputFormatters: [cpfFormatter],
+                          keyboardType: TextInputType.number,
                         ),
-                        SizedBox(
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
+                        AppButton(
+                          type: AppButtonType.elevated,
+                          onPressed: () {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const BaseScreen(),
                               ),
-                            ),
-                            child: const Text(
-                              'Register User',
-                              style: TextStyle(
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
+                            );
+                          },
+                          title: 'Register User',
                         ),
                       ],
                     ),

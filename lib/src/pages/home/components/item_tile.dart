@@ -7,13 +7,13 @@ import 'package:mercadinho/src/services/utils_services.dart';
 
 class ItemTile extends StatefulWidget {
   const ItemTile({
-    Key? key,
+    super.key,
     required this.item,
-    required this.cartAnimationMethod,
-  }) : super(key: key);
+    required this.onClick,
+  });
 
   final ItemModel item;
-  final void Function(GlobalKey) cartAnimationMethod;
+  final void Function(GlobalKey) onClick;
 
   @override
   State<ItemTile> createState() => _ItemTileState();
@@ -62,7 +62,6 @@ class _ItemTileState extends State<ItemTile> {
                       tag: widget.item.imgUrl,
                       child: Image.asset(
                         widget.item.imgUrl,
-                        key: imageGk,
                       ),
                     ),
                   ),
@@ -110,16 +109,19 @@ class _ItemTileState extends State<ItemTile> {
               child: InkWell(
                 onTap: () {
                   switchIcon();
-                  widget.cartAnimationMethod(imageGk);
+                  widget.onClick(imageGk);
                 },
                 child: Ink(
                   height: 40,
                   width: 36,
                   color: CustomColors.customSwatchColor,
-                  child: Icon(
-                    tileIcon,
-                    color: Colors.white,
-                    size: 20,
+                  child: Container(
+                    key: imageGk,
+                    child: Icon(
+                      tileIcon,
+                      color: Colors.white,
+                      size: 20,
+                    ),
                   ),
                 ),
               ),

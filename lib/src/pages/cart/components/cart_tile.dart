@@ -7,10 +7,10 @@ import 'package:mercadinho/src/services/utils_services.dart';
 
 class CartTile extends StatefulWidget {
   const CartTile({
-    Key? key,
+    super.key,
     required this.cartItem,
     required this.remove,
-  }) : super(key: key);
+  });
 
   final CartItemModel cartItem;
   final Function(CartItemModel) remove;

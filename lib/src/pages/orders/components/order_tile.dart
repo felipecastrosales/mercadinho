@@ -8,9 +8,9 @@ import 'order_status_widget.dart';
 
 class OrderTile extends StatelessWidget {
   OrderTile({
-    Key? key,
+    super.key,
     required this.order,
-  }) : super(key: key);
+  });
   final OrderModel order;
   final utilsServices = UtilsServices();
 
@@ -18,7 +18,7 @@ class OrderTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(16),
       ),
       child: Theme(
         data: Theme.of(context).copyWith(
@@ -43,6 +43,7 @@ class OrderTile extends StatelessWidget {
           childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
           expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const SizedBox(height: 8),
             IntrinsicHeight(
               child: Row(
                 children: [
@@ -94,6 +95,9 @@ class OrderTile extends StatelessWidget {
             Visibility(
               visible: order.status == 'pending_payment',
               child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green[600],
+                ),
                 onPressed: () {
                   showDialog(
                     context: context,
@@ -102,15 +106,17 @@ class OrderTile extends StatelessWidget {
                     },
                   );
                 },
-                style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                )),
                 icon: Image.asset(
                   'assets/app_images/pix.png',
                   height: 18,
+                  color: Colors.green[100],
                 ),
-                label: const Text('View QRCode PIX'),
+                label: Text(
+                  'View QRCode PIX',
+                  style: TextStyle(
+                    color: Colors.green[100],
+                  ),
+                ),
               ),
             )
           ],
@@ -122,10 +128,9 @@ class OrderTile extends StatelessWidget {
 
 class _OrderItemWidget extends StatelessWidget {
   const _OrderItemWidget({
-    Key? key,
     required this.orderItem,
     required this.utilsServices,
-  }) : super(key: key);
+  });
 
   final CartItemModel orderItem;
   final UtilsServices utilsServices;
@@ -135,6 +140,7 @@ class _OrderItemWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             '${orderItem.quantity} x ${orderItem.item.unit} ',

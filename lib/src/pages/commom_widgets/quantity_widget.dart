@@ -4,12 +4,12 @@ import 'package:mercadinho/src/config/custom_colors.dart';
 
 class QuantityWidget extends StatelessWidget {
   const QuantityWidget({
-    Key? key,
+    super.key,
     required this.value,
     required this.suffixText,
     required this.result,
     this.isRemovable = false,
-  }) : super(key: key);
+  });
 
   final int value;
   final String suffixText;
@@ -73,11 +73,10 @@ class QuantityWidget extends StatelessWidget {
 
 class _QuantityButton extends StatelessWidget {
   const _QuantityButton({
-    Key? key,
     required this.color,
     required this.icon,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final Color color;
   final IconData icon;
